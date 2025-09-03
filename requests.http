@@ -1,0 +1,91 @@
+### Создание задачи (успешно)
+POST http://127.0.0.1:8000/api/tasks
+Content-Type: application/json
+
+{
+    "title": "Тестовая задача из PHPStorm",
+    "description": "Описание задачи",
+    "status": "pending"
+}
+
+### Создание задачи (без title) - ожидаем ошибку
+POST http://127.0.0.1:8000/api/tasks
+Content-Type: application/json
+
+{
+    "description": "Описание без заголовка",
+    "status": "pending"
+}
+
+### Создание задачи (пустой title) - ожидаем ошибку
+POST http://127.0.0.1:8000/api/tasks
+Content-Type: application/json
+
+{
+    "title": "",
+    "description": "Описание",
+    "status": "pending"
+}
+
+
+### Создание задачи (невалидный статус) - ожидаем ошибку
+POST http://127.0.0.1:8000/api/tasks
+Content-Type: application/json
+
+{
+    "title": "Задача с неправильным статусом",
+    "description": "Описание",
+    "status": "finished"
+}
+
+### Получение всех задач
+GET http://127.0.0.1:8000/api/tasks
+
+### Получение одной задачи (существующей)
+GET http://127.0.0.1:8000/api/tasks/2
+
+### Получение одной задачи (несуществующей) - ожидаем 404
+GET http://127.0.0.1:8000/api/tasks/999
+
+### Обновление задачи (успешно)
+PUT http://127.0.0.1:8000/api/tasks/2
+Content-Type: application/json
+
+{
+    "title": "Обновленное название",
+    "description": "Обновленное описание",
+    "status": "in_progress"
+}
+
+### Обновление задачи (пустой title) - ожидаем ошибку
+PUT http://127.0.0.1:8000/api/tasks/1
+Content-Type: application/json
+
+{
+    "title": "",
+    "status": "done"
+}
+
+### Обновление задачи (невалидный status) - ожидаем ошибку
+PUT http://127.0.0.1:8000/api/tasks/1
+Content-Type: application/json
+
+{
+    "title": "Тест",
+    "status": "invalid_status"
+}
+
+### Удаление задачи (успешно)
+DELETE http://127.0.0.1:8000/api/tasks/1
+
+### Удаление задачи (несуществующей) - ожидаем 404
+DELETE http://127.0.0.1:8000/api/tasks/999
+
+### Некорректный JSON - ожидаем 400
+POST http://127.0.0.1:8000/api/tasks
+Content-Type: application/json
+
+{
+    "title": "Неправильный JSON",
+    "description": "Тест
+}
